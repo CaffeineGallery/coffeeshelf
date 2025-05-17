@@ -38,7 +38,7 @@ show_shelf() {
   tail -n 10 "$SHELF_DIR/logs/console.log" 2>/dev/null || echo "(No command history yet)"
   echo
   echo -e "\e[1mType a command below:\e[0m"
-  read -rp ">> " user_cmd
+  read -rp user_cmd
   if [[ -n "$user_cmd" ]]; then
     echo "$user_cmd" >> "$SHELF_DIR/logs/console.log"
     eval "$user_cmd"
