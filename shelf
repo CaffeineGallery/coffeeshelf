@@ -41,6 +41,9 @@ show_shelf() {
   read -rp user_cmd
   if [[ -n "$user_cmd" ]]; then
     echo "$user_cmd" >> "$SHELF_DIR/logs/console.log"
+    if [[ "$user_cmd" == "exit" ]]; then
+        exit 0
+    fi
     eval "$user_cmd"
     echo -e "\n(Press Enter to return to shelf...)"
     read
