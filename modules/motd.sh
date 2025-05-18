@@ -6,5 +6,6 @@ motd_panel() {
     cat "$SHELF_DIR/motd.txt"
   else
     echo "Welcome to CoffeeShell ☕! Stay productive."
+    echo "Hey! Edit this message by creating $SHELF_DIR/motd.txt!!!"
   fi
 }
