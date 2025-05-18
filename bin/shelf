@@ -1,6 +1,9 @@
 #!/bin/bash
 # 🗃️ CoffeeShelf - Terminal Shelf Dashboard for Coffee Shell
 
+# Stop writing history
+set +o history
+
 # Plugin metadata
 SHELF_DIR="$HOME/.caffeine/plugins/coffeeshelf"
 CONFIG_FILE="$SHELF_DIR/config.conf"
@@ -44,21 +47,16 @@ show_shelf() {
   done
 
   echo "--------------------------------------"
-  echo -e "\e[1mRecent Commands:\e[0m"
-  tail -n 10 "$SHELF_DIR/logs/console.log" 2>/dev/null || echo "(No command history yet)"
-  echo
-  echo -e "\e[1mType a command below:\e[0m"
-  read -rp "" user_cmd
+  read -rp ">> " "$user_cmd"
   if [[ -n "$user_cmd" ]]; then
-    echo "$user_cmd" >> "$SHELF_DIR/logs/console.log"
     if [[ "$user_cmd" == "exit" ]]; then
+        set -o history # Resume writing history
         exit 0
     fi
     if [[ "$user_cmd" == "refresh" ]]; then
         shelf
         exit 0
     fi
-    eval "$user_cmd"
     echo -e "\n(Press Enter to return to shelf...)"
     read
   fi
