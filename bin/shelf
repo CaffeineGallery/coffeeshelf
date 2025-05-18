@@ -6,7 +6,6 @@ SHELF_DIR="$HOME/.caffeine/plugins/coffeeshelf"
 CONFIG_FILE="$SHELF_DIR/config.conf"
 MODULES_DIR="$SHELF_DIR/modules"
 
-
 # Create a config if it doesn't exist
 if [[ ! -f "$CONFIG_FILE" ]]; then
     touch "$CONFIG_FILE"
@@ -43,7 +42,7 @@ show_shelf() {
     fi
   done
 
-  whiptail --title "CoffeeShelf" --msgbox "$output" 30 100
+  whiptail --title "CoffeeShelf" --msgbox "$output" 30 50
 }
 
 # Main entry point
