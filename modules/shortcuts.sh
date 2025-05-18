@@ -1,7 +1,10 @@
 #!/bin/bash
 
-shortcuts_panel() {
-  echo -e "📝 Shortcuts:"
-  echo "[1] Open File Manager:      dolphin ."
-  echo "[2] Update your packages:   sudo bitey update"
+notes_panel() {
+  if [[ -f "$SHELF_DIR/notes.txt" ]]; then 
+      echo "📝 Notes:"
+      cat "$SHELF_DIR/notes.txt"
+  else
+      echo "📝 Write your notes in $SHELF_DIR/notes.txt."
+  fi
 }
