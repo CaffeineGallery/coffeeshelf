@@ -51,19 +51,7 @@ show_shelf() {
     fi
   done
 
-  output+="--------------------------------------\n"
-  output+="(r) Reload shelf | (q) Quit\n"
-
-  whiptail --title "CoffeeShelf" --msgbox "$output" 30 30
-
-  while true; do
-    read -rsn1 key
-    case "$key" in
-      q|Q) tui::shutdown; break ;;
-      r|R|"") show_shelf; return ;;
-      *) show_error "Unknown option: $key" ;;
-    esac
-  done
+  whiptail --title "CoffeeShelf" --msgbox "$output" 30 100
 }
 
 # Main entry point
