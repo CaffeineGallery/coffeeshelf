@@ -1,7 +1,7 @@
 #!/bin/bash
 
 motd_panel() {
-  echo -e "\e[1;33m💬 Message of the Day:\e[0m"
+  echo -e "💬 Message of the Day:"
   if [[ -f "$SHELF_DIR/motd.txt" ]]; then
     cat "$SHELF_DIR/motd.txt"
   else
