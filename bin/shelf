@@ -31,8 +31,6 @@ show_shelf() {
 
   # Draw widgets
   local output=""
-  output+="🗃️ CoffeeShelf - Your Coffee Dashboard\n"
-  output+="--------------------------------------\n\n"
 
   for widget in "${WIDGETS[@]}"; do
     if declare -f "$widget" > /dev/null; then
@@ -42,7 +40,7 @@ show_shelf() {
     fi
   done
 
-  whiptail --title "CoffeeShelf" --msgbox "$output" 30 50
+  whiptail --title "🗃️ CoffeeShelf" --msgbox "$output" 30 50
 }
 
 # Main entry point
