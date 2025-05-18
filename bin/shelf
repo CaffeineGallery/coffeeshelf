@@ -48,7 +48,7 @@ show_shelf() {
     echo "--------------------------------------"
     echo "[r] Reload shelf"
     echo "[q] Quit"
-    read -rp "❓ Option: " choice
+    read -e -rp "❓ Option: " choice
     case "$choice" in
       q|Q) break ;;
       r|R|"") continue ;;
