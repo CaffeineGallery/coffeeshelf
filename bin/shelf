@@ -55,6 +55,7 @@ main() {
   mkdir -p "$SHELF_DIR/logs"
   load_modules
   show_shelf
+  read
 }
 
 main
