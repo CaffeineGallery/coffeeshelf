@@ -46,7 +46,7 @@ show_shelf() {
   done
 
   echo "--------------------------------------"
-  echo "Press ^C to exit"
+  echo "Press Enter to exit"
 }
 
 
