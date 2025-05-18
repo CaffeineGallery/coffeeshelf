@@ -28,20 +28,26 @@ load_modules() {
 
 # Display Shelf with TUI
 show_shelf() {
+  while true; do
+    local output=""
 
-  # Draw widgets
-  local output=""
+    for widget in "${WIDGETS[@]}"; do
+      if declare -f "$widget" > /dev/null; then
+        output+="$($widget)\n\n"
+      else
+        output+="⚠️  Widget function '$widget' not found.\n\n"
+      fi
+    done
 
-  for widget in "${WIDGETS[@]}"; do
-    if declare -f "$widget" > /dev/null; then
-      output+="$($widget)\n\n"
-    else
-      output+="⚠️  Widget function '$widget' not found.\n\n"
+    whiptail --title "🗃️ CoffeeShelf" \
+             --yesno "$output\n🔁 Refresh the shelf?\n❌ Cancel to quit." 30 50
+
+    if [[ $? -ne 0 ]]; then
+      break
     fi
   done
-
-  whiptail --title "🗃️ CoffeeShelf" --msgbox "$output" 30 50
 }
+
 
 # Main entry point
 main() {
