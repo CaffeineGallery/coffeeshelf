@@ -54,6 +54,10 @@ show_shelf() {
     if [[ "$user_cmd" == "exit" ]]; then
         exit 0
     fi
+    if [[ "$user_cmd" == "refresh" ]]; then
+        shelf
+        exit 0
+    fi
     eval "$user_cmd"
     echo -e "\n(Press Enter to return to shelf...)"
     read
