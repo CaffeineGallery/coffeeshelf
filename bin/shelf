@@ -30,24 +30,33 @@ load_modules() {
 
 # TUI Display
 show_shelf() {
-  clear
-  echo -e "\e[1;32m🗃️ CoffeeShelf - Your Coffee Dashboard\e[0m"
-  echo "--------------------------------------"
-  echo
-
-  # Dynamically call widget functions
-  for widget in "${WIDGETS[@]}"; do
-    if declare -f "$widget" > /dev/null; then
-      "$widget"
-    else
-      echo "⚠️  Widget function '$widget' not found."
-    fi
+  while true; do
+    clear
+    echo -e "\e[1;32m🗃️ CoffeeShelf - Your Coffee Dashboard\e[0m"
+    echo "--------------------------------------"
     echo
-  done
 
-  echo "--------------------------------------"
-  echo "Press Enter to exit"
+    for widget in "${WIDGETS[@]}"; do
+      if declare -f "$widget" > /dev/null; then
+        "$widget"
+      else
+        echo "⚠️  Widget function '$widget' not found."
+      fi
+      echo
+    done
+
+    echo "--------------------------------------"
+    echo "[r] Reload shelf"
+    echo "[q] Quit"
+    read -rp "❓ Option: " choice
+    case "$choice" in
+      q|Q) break ;;
+      r|R|"") continue ;;
+      *) echo "⚠️ Unknown option."; sleep 1 ;;
+    esac
+  done
 }
+
 
 
 # Run the shelf
@@ -55,7 +64,6 @@ main() {
   mkdir -p "$SHELF_DIR/logs"
   load_modules
   show_shelf
-  read
 }
 
 main
