@@ -54,9 +54,7 @@ show_shelf() {
 main() {
   mkdir -p "$SHELF_DIR/logs"
   load_modules
-  while true; do
-    show_shelf
-  done
+  show_shelf
 }
 
 main
