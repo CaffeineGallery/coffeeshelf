@@ -47,7 +47,7 @@ show_shelf() {
   done
 
   echo "--------------------------------------"
-  read -rp ">> " "$user_cmd"
+  read -rp "" "$user_cmd"
   if [[ -n "$user_cmd" ]]; then
     if [[ "$user_cmd" == "exit" ]]; then
         set -o history # Resume writing history
