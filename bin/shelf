@@ -54,7 +54,7 @@ show_shelf() {
   output+="--------------------------------------\n"
   output+="(r) Reload shelf | (q) Quit\n"
 
-  echo "$output"
+  dialog --msgbox "$output" 30 30
 
   while true; do
     read -rsn1 key
