@@ -5,16 +5,23 @@
 SHELF_DIR="$HOME/.caffeine/plugins/coffeeshelf"
 CONFIG_FILE="$SHELF_DIR/config.conf"
 MODULES_DIR="$SHELF_DIR/modules"
+TUI_LIB="$SHELF_DIR/lib/bundle.bash"
 
-# Create a config if doesn't exist
-if [[ ! -f "$SHELF_DIR/config" ]]; then
-    touch "$SHELF_DIR/config"
+# Load TUI library
+if [[ -f "$TUI_LIB" ]]; then
+  source "$TUI_LIB"
+else
+  echo "❌ bash-tui-toolkit not found at $TUI_LIB"
+  exit 1
+fi
+
+# Create a config if it doesn't exist
+if [[ ! -f "$CONFIG_FILE" ]]; then
+    touch "$CONFIG_FILE"
 fi
 
 # Load config
 source "$CONFIG_FILE"
-
-
 
 # Load modules
 load_modules() {
@@ -28,38 +35,39 @@ load_modules() {
   done
 }
 
-# TUI Display
+# Display Shelf with TUI
 show_shelf() {
+  tui::init
+
+  # Draw widgets
+  local output=""
+  output+="🗃️ CoffeeShelf - Your Coffee Dashboard\n"
+  output+="--------------------------------------\n\n"
+
+  for widget in "${WIDGETS[@]}"; do
+    if declare -f "$widget" > /dev/null; then
+      output+="$($widget)\n\n"
+    else
+      output+="⚠️  Widget function '$widget' not found.\n\n"
+    fi
+  done
+
+  output+="--------------------------------------\n"
+  output+="(r) Reload shelf | (q) Quit\n"
+
+  tui::screen::draw "$output"
+
   while true; do
-    clear
-    echo -e "\e[1;32m🗃️ CoffeeShelf - Your Coffee Dashboard\e[0m"
-    echo "--------------------------------------"
-    echo
-
-    for widget in "${WIDGETS[@]}"; do
-      if declare -f "$widget" > /dev/null; then
-        "$widget"
-      else
-        echo "⚠️  Widget function '$widget' not found."
-      fi
-      echo
-    done
-
-    echo "--------------------------------------"
-    echo "[r] Reload shelf"
-    echo "[q] Quit"
-    read -e -rp "❓ Option: " choice
-    case "$choice" in
-      q|Q) break ;;
-      r|R|"") continue ;;
-      *) echo "⚠️ Unknown option."; sleep 1 ;;
+    read -rsn1 key
+    case "$key" in
+      q|Q) tui::shutdown; break ;;
+      r|R|"") show_shelf; return ;;
+      *) tui::toast::warn "Unknown option: $key" ;;
     esac
   done
 }
 
-
-
-# Run the shelf
+# Main entry point
 main() {
   mkdir -p "$SHELF_DIR/logs"
   load_modules
