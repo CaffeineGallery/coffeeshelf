@@ -12,9 +12,8 @@ if [[ ! -f "$SHELF_DIR/config" ]]; then
 fi
 
 # Load config
-set -o allexport
 source "$CONFIG_FILE"
-set +o allexport
+
 
 
 # Load modules
