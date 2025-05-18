@@ -6,5 +6,5 @@ notes_panel() {
   echo "📝 Notes:"
   tail -n 10 "$SHELF_DIR/notes.txt"
   echo
-  echo "✏️  Edit with: nano $SHELF_DIR/notes.txt"
+  echo "✏️  Edit $SHELF_DIR/notes.txt to change  the content!"
 }
