@@ -5,15 +5,7 @@
 SHELF_DIR="$HOME/.caffeine/plugins/coffeeshelf"
 CONFIG_FILE="$SHELF_DIR/config.conf"
 MODULES_DIR="$SHELF_DIR/modules"
-TUI_LIB="$SHELF_DIR/lib/bundle.bash"
 
-# Load TUI library
-if [[ -f "$TUI_LIB" ]]; then
-  source "$TUI_LIB"
-else
-  echo "❌ bash-tui-toolkit not found at $TUI_LIB"
-  exit 1
-fi
 
 # Create a config if it doesn't exist
 if [[ ! -f "$CONFIG_FILE" ]]; then
