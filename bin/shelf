@@ -12,7 +12,10 @@ if [[ ! -f "$SHELF_DIR/config" ]]; then
 fi
 
 # Load config
-source "$SHELF_DIR/config"
+set -o allexport
+source "$CONFIG_FILE"
+set +o allexport
+
 
 # Load modules
 load_modules() {
