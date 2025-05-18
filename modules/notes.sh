@@ -1,10 +1,10 @@
 #!/bin/bash
 
 notes_panel() {
-  if [[ -f "$SHELF_DIR/notes.txt" ]]; then 
-      echo "📝 Notes:"
-      cat "$SHELF_DIR/notes.txt"
-  else
-      echo "📝 Write your notes in $SHELF_DIR/notes.txt."
-  fi
+  [[ ! -f "$SHELF_DIR/notes.txt" ]] && touch "$SHELF_DIR/notes.txt"
+
+  echo "📝 Notes:"
+  tail -n 10 "$SHELF_DIR/notes.txt"
+  echo
+  echo "✏️  Edit with: nano $SHELF_DIR/notes.txt"
 }
