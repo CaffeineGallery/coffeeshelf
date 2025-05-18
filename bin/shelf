@@ -54,7 +54,7 @@ show_shelf() {
   output+="--------------------------------------\n"
   output+="(r) Reload shelf | (q) Quit\n"
 
-  dialog --msgbox "$output" 30 30
+  whiptail --title "CoffeeShelf" --msgbox "$output" 30 30
 
   while true; do
     read -rsn1 key
