@@ -46,19 +46,7 @@ show_shelf() {
   done
 
   echo "--------------------------------------"
-  echo
-  read -rp "" "$user_cmd"
-  if [[ -n "$user_cmd" ]]; then
-    if [[ "$user_cmd" == "exit" ]]; then
-        exit 0
-    fi
-    if [[ "$user_cmd" == "refresh" ]]; then
-        shelf
-        exit 0
-    fi
-    echo -e "\n(Press Enter to return to shelf...)"
-    read
-  fi
+  echo "Press ^C to exit"
 }
 
 
