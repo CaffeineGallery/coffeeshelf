@@ -6,12 +6,17 @@ SHELF_DIR="$HOME/.caffeine/plugins/coffeeshelf"
 CONFIG_FILE="$SHELF_DIR/config.conf"
 MODULES_DIR="$SHELF_DIR/modules"
 
-# Default modules
-DEFAULT_MODULES=("sysinfo" "shortcuts" "motd")
+# Create a config if doesn't exist
+if [[ ! -f "$SHELF_DIR/config" ]]; then
+    touch "$SHELF_DIR/config"
+fi
+
+# Load config
+source "$SHELF_DIR/config"
 
 # Load modules
 load_modules() {
-  for module in "${DEFAULT_MODULES[@]}"; do
+  for module in "${MODULES[@]}"; do
     MODULE_PATH="$MODULES_DIR/$module.sh"
     if [[ -f "$MODULE_PATH" ]]; then
       source "$MODULE_PATH"
@@ -27,12 +32,17 @@ show_shelf() {
   echo -e "\e[1;32m🗃️ CoffeeShelf - Your Coffee Dashboard\e[0m"
   echo "--------------------------------------"
   echo
-  sysinfo_panel
-  echo
-  shortcuts_panel
-  echo
-  motd_panel
-  echo
+
+  # Dynamically call widget functions
+  for widget in "${WIDGETS[@]}"; do
+    if declare -f "$widget" > /dev/null; then
+      "$widget"
+    else
+      echo "⚠️  Widget function '$widget' not found."
+    fi
+    echo
+  done
+
   echo "--------------------------------------"
   echo -e "\e[1mRecent Commands:\e[0m"
   tail -n 10 "$SHELF_DIR/logs/console.log" 2>/dev/null || echo "(No command history yet)"
@@ -49,6 +59,7 @@ show_shelf() {
     read
   fi
 }
+
 
 # Run the shelf
 main() {
