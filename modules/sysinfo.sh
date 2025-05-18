@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sysinfo_panel() {
-  echo -e "\e[1;34m📊 System Info:\e[0m"
+  echo -e "📊 System Info:"
   echo "User:        $USER"
   echo "Hostname:    $(hostname)"
   echo "Uptime:      $(uptime -p)"
