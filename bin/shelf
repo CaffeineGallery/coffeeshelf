@@ -37,7 +37,6 @@ load_modules() {
 
 # Display Shelf with TUI
 show_shelf() {
-  tui::init
 
   # Draw widgets
   local output=""
@@ -55,14 +54,14 @@ show_shelf() {
   output+="--------------------------------------\n"
   output+="(r) Reload shelf | (q) Quit\n"
 
-  tui::screen::draw "$output"
+  echo "$output"
 
   while true; do
     read -rsn1 key
     case "$key" in
       q|Q) tui::shutdown; break ;;
       r|R|"") show_shelf; return ;;
-      *) tui::toast::warn "Unknown option: $key" ;;
+      *) show_error "Unknown option: $key" ;;
     esac
   done
 }
